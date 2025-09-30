@@ -1,0 +1,112 @@
+Input #0, mp3, from 'Batman - Inferno.mp3':
+  Metadata:
+    album           : DC Comics - Batman: Inferno
+    artist          : Alex Irvine
+    album_artist    : DC
+    comment         : Written by Alex Irvine. Batman created by Bob Kane - Narrated by Richard Rohan - with Performances by James Konicek, Steven Carpenter, Terence Aselford, Colleen Delany, David Coyne, Lily Beacon, Nathan Bennett, Ken Jackson, Mort Shelby, Tim Getman, Andy C
+    composer        : GraphicAudio
+    copyright       : Copyright 2009 by DC Comics All Rights Reserved. Batman and all related names, characters and elements are trademarks of DC Comics Copyright 2009 DC Comics. Production Copyright 2009 The Cutting Corporation. All Rights Reserved.
+    encoder         : Lavf57.41.100
+    genre           : Audiobook
+    compilation     : 1
+    title           : Batman: Inferno
+    track           : 1
+    iTunSMPB        :  00000000 00000640 00000040 00000000446CB980 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+    major_brand     : mp42
+    minor_version   : 0
+    compatible_brands: mp42isom3gp43gp6
+    date            : 2009
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Audio: mp3, 0 channels, fltp
+  Stream #0:1: Video: png, rgb24(pc, gbr/unknown/unknown), 1200x1200 [SAR 1:1 DAR 1:1], 90k tbr, 90k tbn (attached pic)
+    Metadata:
+      comment         : Other
+    "streams": [
+        {
+            "index": 0,
+            "codec_name": "mp3",
+            "codec_long_name": "MP3 (MPEG audio layer 3)",
+            "codec_type": "audio",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "sample_fmt": "fltp",
+            "sample_rate": "0",
+            "channels": 0,
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/14112000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "disposition": {
+                "default": 0,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 0,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0
+            }
+        },
+        {
+            "index": 1,
+            "codec_name": "png",
+            "codec_long_name": "PNG (Portable Network Graphics) image",
+            "codec_type": "video",
+            "codec_tag_string": "[0][0][0][0]",
+            "codec_tag": "0x0000",
+            "width": 1200,
+            "height": 1200,
+            "coded_width": 1200,
+            "coded_height": 1200,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 0,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "1:1",
+            "pix_fmt": "rgb24",
+            "level": -99,
+            "color_range": "pc",
+            "color_space": "gbr",
+            "refs": 1,
+            "r_frame_rate": "90000/1",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/90000",
+            "disposition": {
+                "default": 0,
+                "dub": 0,
+                "original": 0,
+                "comment": 0,
+                "lyrics": 0,
+                "karaoke": 0,
+                "forced": 0,
+                "hearing_impaired": 0,
+                "visual_impaired": 0,
+                "clean_effects": 0,
+                "attached_pic": 1,
+                "timed_thumbnails": 0,
+                "non_diegetic": 0,
+                "captions": 0,
+                "descriptions": 0,
+                "metadata": 0,
+                "dependent": 0,
+                "still_image": 0
+            },
+            "tags": {
+                "comment": "Other"
+            }
+        }
+    ]
+}

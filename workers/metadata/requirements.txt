@@ -1,0 +1,6 @@
+celery[redis]
+pydub==0.25.1
+requests==2.32.5
+beautifulsoup4==4.12.2
+playwright==1.55.0
+playwright-stealth==2.0.0

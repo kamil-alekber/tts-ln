@@ -1,0 +1,202 @@
+networks:
+  novel-tts-network:
+    driver: bridge
+volumes:
+  redis_data:
+    driver: local
+  static_volume:
+    driver: local
+services:
+  playwright-browser:
+    build:
+      context: browser
+      dockerfile: Dockerfile
+    container_name: novel-tts-playwright-browser
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - novel-tts-network
+  flower:
+    image: mher/flower:2.0
+    container_name: novel-tts-flower
+    ports:
+      - "5555:5555"
+    environment:
+      - FLOWER_UNAUTHENTICATED_API=true
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - FLOWER_PORT=5555
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - novel-tts-network
+  redis:
+    image: redis:7.0-alpine
+    container_name: novel-tts-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    networks:
+      - novel-tts-network
+  api:
+    develop:
+      watch:
+        - action: rebuild
+          path: ./api
+        - action: rebuild
+          path: ./libs
+
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    container_name: novel-tts-api
+    volumes:
+      - static_volume:/app/static:rw
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - novel-tts-network
+  tts-base:
+    build:
+      context: libs
+      dockerfile: Dockerfile
+    image: tts-base
+    container_name: tts-base-image
+    command: ["echo", "Base TTS image built successfully"]
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    networks:
+      - novel-tts-network
+  completed-worker:
+    build:
+      context: workers/completed
+      dockerfile: Dockerfile
+    container_name: process-completed-worker
+    environment:
+      - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - static_volume:/app/static:rw
+    depends_on:
+      - tts-base
+      - playwright-browser
+      - redis
+    restart: unless-stopped
+    networks:
+      - novel-tts-network
+  converter-worker:
+    build:
+      context: workers/converter
+      dockerfile: Dockerfile
+    container_name: process-converter-worker
+    environment:
+      - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - static_volume:/app/static:rw
+    depends_on:
+      - tts-base
+      - playwright-browser
+      - redis
+    restart: unless-stopped
+    networks:
+      - novel-tts-network
+  metadata-worker:
+    build:
+      context: workers/metadata
+      dockerfile: Dockerfile
+    container_name: process-metadata-worker
+    environment:
+      - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - static_volume:/app/static:rw
+    depends_on:
+      - tts-base
+      - playwright-browser
+      - redis
+    restart: unless-stopped
+    networks:
+      - novel-tts-network
+  sync-worker:
+    build:
+      context: workers/sync
+      dockerfile: Dockerfile
+    container_name: process-sync-worker
+    environment:
+      - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
+      - REDIS_URL=redis://redis:6379/0
+      - SSH_USER=${SSH_USER:-k8s-samba}
+      - SSH_PASSWORD=${SSH_PASSWORD:-95782641}
+      - SSH_HOST=${SSH_HOST:-192.168.8.184}
+      - RSYNC_DESTINATION_PATH=${RSYNC_DESTINATION_PATH:-/srv/samba/k8s-share/media/books/}
+    volumes:
+      - static_volume:/app/static:rw
+      - /Users/kalekber/.ssh/id_rsa:/app/.ssh/id_rsa
+    depends_on:
+      - tts-base
+      - playwright-browser
+      - redis
+    restart: unless-stopped
+    networks:
+      - novel-tts-network
+  tts-worker:
+    build:
+      context: workers/tts
+      dockerfile: Dockerfile
+    container_name: process-tts-worker
+    environment:
+      - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - static_volume:/app/static:rw
+    depends_on:
+      - tts-base
+      - playwright-browser
+      - redis
+    restart: unless-stopped
+    networks:
+      - novel-tts-network
+  book-worker:
+    build:
+      context: workers/book
+      dockerfile: Dockerfile
+    container_name: process-book-worker
+    environment:
+      - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - static_volume:/app/static:rw
+    depends_on:
+      - tts-base
+      - playwright-browser
+      - redis
+    restart: unless-stopped
+    networks:
+      - novel-tts-network
+  chapter-worker:
+    build:
+      context: workers/chapter
+      dockerfile: Dockerfile
+    container_name: process-chapter-worker
+    environment:
+      - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - static_volume:/app/static:rw
+    depends_on:
+      - tts-base
+      - playwright-browser
+      - redis
+    restart: unless-stopped
+    networks:
+      - novel-tts-network
+    

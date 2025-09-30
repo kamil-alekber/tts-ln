@@ -1,0 +1,4 @@
+celery[redis]
+beautifulsoup4==4.12.2
+playwright==1.55.0
+playwright-stealth==2.0.0

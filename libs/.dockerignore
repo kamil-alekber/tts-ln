@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.bak
+*.tmp
+*.log
+.env
+venv/
+build/
+dist/
+*.egg-info/
+.DS_Store
+.git/
+.gitignore
+__MACOSX/
