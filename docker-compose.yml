@@ -64,17 +64,17 @@ services:
     restart: unless-stopped
     networks:
       - novel-tts-network
-  tts-base:
-    build:
-      context: libs
-      dockerfile: Dockerfile
-    image: tts-base
-    container_name: tts-base-image
-    command: ["echo", "Base TTS image built successfully"]
-    environment:
-      - REDIS_URL=redis://redis:6379/0
-    networks:
-      - novel-tts-network
+  # tts-base:
+  #   build:
+  #     context: libs
+  #     dockerfile: Dockerfile
+  #   image: tts-base
+  #   container_name: tts-base-image
+  #   command: ["echo", "Base TTS image built successfully"]
+  #   environment:
+  #     - REDIS_URL=redis://redis:6379/0
+  #   networks:
+  #     - novel-tts-network
   completed-worker:
     build:
       context: workers/completed

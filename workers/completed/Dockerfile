@@ -1,4 +1,4 @@
-FROM tts-base
+FROM kalekber/tts-base:0.0.1
 
 WORKDIR /app
 
