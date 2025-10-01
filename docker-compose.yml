@@ -86,7 +86,6 @@ services:
     volumes:
       - static_volume:/app/static:rw
     depends_on:
-      - tts-base
       - playwright-browser
       - redis
     restart: unless-stopped
@@ -103,7 +102,6 @@ services:
     volumes:
       - static_volume:/app/static:rw
     depends_on:
-      - tts-base
       - playwright-browser
       - redis
     restart: unless-stopped
@@ -120,7 +118,6 @@ services:
     volumes:
       - static_volume:/app/static:rw
     depends_on:
-      - tts-base
       - playwright-browser
       - redis
     restart: unless-stopped
@@ -142,7 +139,6 @@ services:
       - static_volume:/app/static:rw
       - /Users/kalekber/.ssh/id_rsa:/app/.ssh/id_rsa
     depends_on:
-      - tts-base
       - playwright-browser
       - redis
     restart: unless-stopped
@@ -159,7 +155,6 @@ services:
     volumes:
       - static_volume:/app/static:rw
     depends_on:
-      - tts-base
       - playwright-browser
       - redis
     restart: unless-stopped
@@ -176,7 +171,6 @@ services:
     volumes:
       - static_volume:/app/static:rw
     depends_on:
-      - tts-base
       - playwright-browser
       - redis
     restart: unless-stopped
@@ -193,7 +187,6 @@ services:
     volumes:
       - static_volume:/app/static:rw
     depends_on:
-      - tts-base
       - playwright-browser
       - redis
     restart: unless-stopped
