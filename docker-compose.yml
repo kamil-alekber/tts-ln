@@ -137,7 +137,7 @@ services:
       - RSYNC_DESTINATION_PATH=${RSYNC_DESTINATION_PATH:-/srv/samba/k8s-share/media/books/}
     volumes:
       - static_volume:/app/static:rw
-      - /Users/kalekber/.ssh/id_rsa:/app/.ssh/id_rsa
+      - ~/.ssh/id_rsa:/app/.ssh/id_rsa
     depends_on:
       - playwright-browser
       - redis

@@ -76,7 +76,7 @@ def scrape_url(url, handler):
             page = browser.new_page()
 
             page.goto(url)
-            page.wait_for_timeout(5000)
+            page.wait_for_timeout(7000)
 
             page_html = page.content()
             browser.close()
