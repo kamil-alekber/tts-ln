@@ -1,4 +1,5 @@
-FROM kalekber/tts-base:0.0.1
+ARG VERSION=latest
+FROM kalekber/tts-base:${VERSION}
 
 WORKDIR /app
 

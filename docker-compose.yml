@@ -64,21 +64,12 @@ services:
     restart: unless-stopped
     networks:
       - novel-tts-network
-  # tts-base:
-  #   build:
-  #     context: libs
-  #     dockerfile: Dockerfile
-  #   image: tts-base
-  #   container_name: tts-base-image
-  #   command: ["echo", "Base TTS image built successfully"]
-  #   environment:
-  #     - REDIS_URL=redis://redis:6379/0
-  #   networks:
-  #     - novel-tts-network
   completed-worker:
     build:
       context: workers/completed
       dockerfile: Dockerfile
+      args:
+        VERSION: ${TTS_BASE_VERSION:-latest}
     container_name: process-completed-worker
     environment:
       - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
@@ -95,6 +86,8 @@ services:
     build:
       context: workers/converter
       dockerfile: Dockerfile
+      args:
+        VERSION: ${TTS_BASE_VERSION:-latest}
     container_name: process-converter-worker
     environment:
       - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
@@ -111,6 +104,8 @@ services:
     build:
       context: workers/metadata
       dockerfile: Dockerfile
+      args:
+        VERSION: ${TTS_BASE_VERSION:-latest}
     container_name: process-metadata-worker
     environment:
       - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
@@ -127,6 +122,8 @@ services:
     build:
       context: workers/sync
       dockerfile: Dockerfile
+      args:
+        VERSION: ${TTS_BASE_VERSION:-latest}
     container_name: process-sync-worker
     environment:
       - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
@@ -148,6 +145,8 @@ services:
     build:
       context: workers/tts
       dockerfile: Dockerfile
+      args:
+        VERSION: ${TTS_BASE_VERSION:-latest}
     container_name: process-tts-worker
     environment:
       - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
@@ -164,6 +163,8 @@ services:
     build:
       context: workers/book
       dockerfile: Dockerfile
+      args:
+        VERSION: ${TTS_BASE_VERSION:-latest}
     container_name: process-book-worker
     environment:
       - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
@@ -180,6 +181,8 @@ services:
     build:
       context: workers/chapter
       dockerfile: Dockerfile
+      args:
+        VERSION: ${TTS_BASE_VERSION:-latest}
     container_name: process-chapter-worker
     environment:
       - PLAYWRIGHT_BROWSER_URL=ws://playwright-browser:3000
